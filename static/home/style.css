@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: rgb(17,45,96);
+    background: linear-gradient(100deg, rgba(17,45,96,0.94) 16%, rgba(182,192,197,0.93) 100%);
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    min-height: 100vh;
+    font-family: American Typewriter, serif;
+    font-size: 20px;
+}
+
+.home{
+    color: #ccc;
+    min-width: 1000px;
+    min-height: 500px;
+    border-radius: 20px;
+    background-color: rgba(240, 227, 227, 0.03);
+    border: 1px, solid, #ccc;
+}
+
+h1{
+    padding: 1em;
+    margin-left: 38%;
+}
+
+.tarefas{
+    margin-left: 20px;
+    
+}
+#tarefa{
+    padding: 2px;
+}
+
+
+input[type="checkbox"] {
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+    width: 23px;
+    height: 20px;
+    border: 2px solid #333;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="checkbox"]::before {   
+    font-size: 20px;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input[type="checkbox"]:checked {
+    background-color: rgba(76, 95, 131, 0.94);
+    border-color: rgba(76, 95, 131, 0.94);
+}
+
+input[type="checkbox"]:checked::before {
+    content: 'X'; 
+    display: block;
+}
+#buttonSave{
+    margin-left: 30%;
+    margin-top: 30%;
+    border-radius: 5px; 
+    border: none;
+    background-color: rgba(76, 95, 131, 0.94);
+    cursor: pointer;
+    width: 75px;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+
+.delete-link{
+    text-decoration: none;
+    color: white;
+    margin-left: 80%;
+}
+
+footer{
+    margin-top: 20%;
+    padding: 10px;
+    background-color: rgb(17,45,96, 0.5);
+    margin-left: 36%;
+    color: #ccc;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px, solid, #ccc;
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+}
+
+#save,
+#logoutBtn{
+    margin-left: 40px;
+}
+
+.button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+}
+
+.button img{
+    width: 20px; 
+}
+
+.formulario ::placeholder{
+    color: white; 
+}
+
+#addTaskForm{ 
+    display: none;
+    margin-left: 42%;
+}
+
+#titulo{
+    margin-top: 10px;
+}
+
+#titulo, 
+#descricao {
+    height: 30px;
+    border-color: #ccc;
+    margin-bottom: 10px;
+    background: none;
+    color: white;
+}
+
+#addTaskForm .button{
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 50px;
+    font-size: 15px;
+}

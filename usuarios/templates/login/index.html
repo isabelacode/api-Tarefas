@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'login/style.css' %}">
+</head>
+<body>
+    <div class="login">
+        <h1>Login</h1>
+        <form action="{% url 'login' %}" method="POST">{% csrf_token %} 
+            {% if mensagem %}
+            <p class="erro">{{ mensagem }}</p>
+            {% endif %}
+            <div class="input-group">
+                <span class="input-group-icon"><img src="{% static '/img/person.png' %}" alt="User Icon"></span>
+                <input id="entrada" type="text" placeholder="Nome..." name="username">  
+            </div>
+
+            <div class="input-group" >
+                <span class="input-group-icon"><img src="{% static '/img/password.png' %}" alt="password Icon"></span>
+                <input id="entrada" type="password" placeholder="Senha..." name="senha">
+            </div>
+            
+            <input id="botao" type="submit" value="entrar">
+            <p id="cadastro">
+                Não possui conta? <a href="/auth/cadastro/">cadastre-se</a>
+            </p>
+        </form>  
+    </div>  
+</body>
+
+</html>
