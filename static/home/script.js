@@ -37,3 +37,34 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const containerTarefas = document.querySelector('.tarefas');
+
+    containerTarefas.addEventListener('click', function(event) {
+        const botaoTarefa = event.target.closest('.tarefa-btn');
+        if (!botaoTarefa) return;
+
+        event.preventDefault(); 
+        const idTarefa = botaoTarefa.dataset.tarefa;
+        const descricaoTarefa = document.getElementById('descricao' + idTarefa);
+
+        if (descricaoTarefa.style.display === 'none' || descricaoTarefa.style.display === '') {
+            descricaoTarefa.style.display = 'block';
+        } else {
+            descricaoTarefa.style.display = 'none';
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Envia o formulário quando o checkbox é alterado
+            this.closest('form').submit();
+        });
+    });
+});
+
+

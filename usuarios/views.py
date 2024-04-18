@@ -60,17 +60,18 @@ def home(request):
                 tarefa.concluida = True
                 tarefa.data_conclusao = datetime.now()
                 tarefa.save()
+                tarefas = Tarefa.objects.filter(user=request.user)
         return redirect('home')
 
     user = request.user
     tarefas = Tarefa.objects.filter(user=user).order_by(F('concluida').asc(), 'data_criacao')
     return render(request, 'home/index.html', {'tarefas': tarefas})
 
-@login_required  
+@login_required
 def user_logout(request):  
-    print("Logout successful")
     logout(request)
     return redirect('login')
+
 
 def delete_task(request, task_id):
     if request.method == 'POST':

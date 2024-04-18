@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -14,38 +13,36 @@
     <div class="home">
         <form method="post">
             {% csrf_token %}
-            <h1>To do List</h1>
+            <button class="button" id="logoutBtn" onclick="window.location.href='{% url 'logout' %}'">
+                <img src="{% static '/img/logout.png' %}" alt="logout icon">
+                </button>
+            <h1>Tarefas</h1>
             <div class="tarefas">
                 {% for tarefa in tarefas %}
-                    <div id="tarefa" class="{% if tarefa.concluida %}concluida{% endif %}">
-                        <input type="checkbox" name="tarefas_concluidas" value="{{ tarefa.id }}" {% if tarefa.concluida %}checked{% endif %}>
-                        <label>{{ tarefa.titulo }}</label>
-                        
+                    <div id="tarefa{{ tarefa.id }}" class="tarefa {% if tarefa.concluida %}concluida{% endif %}">
+                        <input type="checkbox" name="tarefas_concluidas" value="{{ tarefa.id }}" {% if tarefa.concluida %}checked{% endif %}> 
+                        <button class="tarefa-btn" data-tarefa="{{ tarefa.id }}">{{ tarefa.titulo }}</button>
                         <a href="#" class="delete-link" data-method="delete" data-url="{% url 'delete_task' tarefa.id %}" data-csrf="{{ csrf_token }}">Excluir</a>
+                        <div class="descricao-tarefa" id="descricao{{ tarefa.id }}">
+                            {{ tarefa.descricao }}
+                        </div>
                     </div>
                 {% endfor %}
-    
+                <button class="button" id="addTaskBtn" type="button"> Adicionar tarefa</button>
+                <div class="formulario" id="addTaskForm">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="text" id="titulo" name="titulo" placeholder="Título da tarefa">
+                        </br>
+                        <input type="text" name="descricao" id="descricao" placeholder="Descrição da tarefa"></textarea>
+                        </br>
+                        <button class="button" type="submit" name="addTaskBtn">Adicionar</button>
+                    </form>
+                </div>
             </div>
-            <footer>
-                <button class="button" id="addTaskBtn" type="button">+</button>
-                <button class="button" id="save" type="submit"><img src="{% static '/img/save.png' %}" alt="save icon"></button>
-                <button class="button" id="logoutBtn" onclick="window.location.href='{% url 'logout' %}'">
-                    <img src="{% static '/img/logout.png' %}" alt="logout icon">
-                </button>
-            </footer>
         </form>
-        <div class="formulario" id="addTaskForm" >
-            <form method="post">
-                {% csrf_token %}
-                <input type="text" id="titulo" name="titulo" placeholder="Título da tarefa">
-                </br>
-                <input type="text" name="descricao" id="descricao" placeholder="Descrição da tarefa"></textarea>
-                </br>
-                <button class="button" type="submit" name="addTaskBtn">Adicionar</button>
-            </form>
-        </div>
     </div>
+    
     <script src="{% static 'home/script.js' %}"></script>
 </body>
 </html>
-
