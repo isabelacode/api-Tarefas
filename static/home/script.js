@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     deleteLinks.forEach(link => {
         link.addEventListener('click', function (event) {
-            event.preventDefault(); // Impede que o link seja seguido
+            event.preventDefault(); 
 
             const url = this.getAttribute('data-url');
             const csrfToken = this.getAttribute('data-csrf');
@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
-            // Envia o formulário quando o checkbox é alterado
             this.closest('form').submit();
         });
     });

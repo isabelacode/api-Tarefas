@@ -50,8 +50,6 @@ h1{
     margin-left: 35px; 
 }
 
-
-
 input[type="checkbox"] {
     -webkit-appearance: none; 
     -moz-appearance: none;
@@ -83,20 +81,8 @@ input[type="checkbox"]:checked::before {
     content: 'X'; 
     display: block;
 }
-#buttonSave{
-    margin-left: 30%;
-    margin-top: 30%;
-    border-radius: 5px; 
-    border: none;
-    background-color: rgba(76, 95, 131, 0.94);
-    cursor: pointer;
-    width: 75px;
-    margin-bottom: 20px;
-    color: white;
-  }
 
-
-  .tarefa {
+.tarefa {
     margin-left: 10px; 
     position: relative; 
 }
@@ -141,7 +127,6 @@ input[type="checkbox"]:checked::before {
 #addTaskForm{ 
     display: none;
     margin-left: 40px;
-
 }
 
 #titulo{
@@ -158,11 +143,10 @@ input[type="checkbox"]:checked::before {
     color: white;
 }
 
-
-#addTaskForm .button{
+#addTaskForm button{
     margin-top: 20px;
     margin-bottom: 30px;
-    margin-left: 50px;
+    margin-left: 80px;
     font-size: 15px;
 }
 
@@ -179,20 +163,17 @@ input[type="checkbox"]:checked::before {
     text-align: left; 
 }
 
-
-
 #addTaskBtn:hover {
-    color: #003366; /* Altere para a cor desejada */
+    color: #003366; 
 }
 
 #addTaskBtn::before {
     content: '+';
     left: 0;
     font-size: 24px;
-    color: #003366; /* Cor do símbolo "+" */
+    color: #003366; 
     
 }
-
 
 #addTaskBtn:hover::before {content: '+';
     padding-left: 4px;
