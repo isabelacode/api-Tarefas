@@ -1,61 +1,202 @@
-# API To-Do List
-Apresento um projeto de uma API de lista de tarefas construída utilizando Django e Django Rest Framework, complementada por uma interface desenvolvida em JavaScript, HTML e CSS.
+#  API To-Do List
 
-## Funcionalidades
-- CRUD (Criar, Ler, Atualizar, Deletar): Implementa operações completas para gerenciar tarefas.
-- Marcar como concluída: Permite aos usuários marcar tarefas como concluídas para acompanhar seu progresso.
-- Filtragem por usuário: Facilita a visualização de tarefas específicas associadas a cada usuário.
-- Adicionar e Remover Tarefas: Oferece a capacidade de adicionar novas tarefas ou remover aquelas que não são mais necessárias.
-- Interface Interativa: Integra uma interface dinâmica que interage de forma transparente com o backend, proporcionando uma experiência suave e responsiva para os usuários.
+> Uma API REST completa para gerenciamento de tarefas desenvolvida com Django e Django REST Framework, incluindo interface web interativa.
+
+![Python](https://img.shields.io/badge/Python-3.12%2B-blue)
+![Django](https://img.shields.io/badge/Django-5.0.2-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue)
+![Docker](https://img.shields.io/badge/Docker-Supported-blue)
+
+## Sobre o Projeto
+
+Esta API de To-Do List oferece um sistema completo para gerenciamento de tarefas pessoais, permitindo que usuários criem, organizem e acompanhem suas atividades diárias. O projeto combina um backend robusto em Django.
+
+### Principais Funcionalidades
+
+- **Sistema de Usuários**: Cadastro e autenticação de usuários
+- **CRUD Completo**: Criar, ler, atualizar e deletar tarefas
+- **Controle de Status**: Marcar tarefas como concluídas/pendentes
+- **Filtragem**: Visualizar tarefas por usuário e status
+- **Timestamps**: Rastreamento de datas de criação e conclusão
+- **Docker Ready**: Configuração completa com Docker Compose
+- **API RESTful**: Endpoints bem estruturados seguindo padrões REST
+
+## Início Rápido
+
+### Pré-requisitos
+
+-  **Docker** e **Docker Compose** (Recomendado)
+- **Python 3.12+** (para instalação local)
+- **PostgreSQL 15+** (para instalação local)
+- **Git** para clonar o repositório
+
+## Instalação com Docker (Recomendado)
+
+### 1️. Clone o repositório
+```bash
+git clone https://github.com/isabelacode/api-Tarefas.git
+cd api-Tarefas
+```
+
+### 2️. Configure as variáveis de ambiente
+```bash
+# Verifique as configurações em .env se necessário
+```
+
+### 3. Execute com Docker Compose
+```bash
+# Construir e iniciar todos os serviços
+docker-compose up --build
+
+# Para executar em segundo plano
+docker-compose up -d --build
+```
+
+### 4️. Execute as migrações iniciais
+```bash
+# Em outro terminal, execute as migrações
+docker-compose exec web python manage.py migrate
+
+# Criar um superusuário (opcional)
+docker-compose exec web python manage.py createsuperuser
+```
+
+### 5️. Acesse a aplicação
+-  **API**: http://localhost:8000/api/
+- **Admin Django**: http://localhost:8000/admin/
+
+###  Comandos úteis com Docker
+
+```bash
+# Ver logs em tempo real
+docker-compose logs -f web
+
+# Parar todos os serviços
+docker-compose down
+
+# Reiniciar completamente
+docker-compose down && docker-compose up --build
+
+# Acessar shell do Django
+docker-compose exec web python manage.py shell
+
+# Executar testes
+docker-compose exec web python manage.py test
+```
+
+## Instalação Local (Desenvolvimento)
+
+### 1️. Clone e prepare o ambiente
+```bash
+git clone https://github.com/isabelacode/api-Tarefas.git
+cd api-Tarefas
+
+# Criar ambiente virtual
+python -m venv venv
+
+# Ativar ambiente virtual
+# Windows (PowerShell):
+venv\Scripts\Activate.ps1
+# Windows (CMD):
+venv\Scripts\activate.bat
+# Linux/macOS:
+source venv/bin/activate
+```
+
+### 2️.  Instalar dependências
+```bash
+pip install -r requirements.txt
+```
+
+### 3️. Configurar banco de dados
+
+**Opção A: PostgreSQL (Recomendado)**
+```bash
+# 1. Instale e configure PostgreSQL
+# 2. Crie um banco de dados chamado 'toDoList'
+# 3. Configure as credenciais no arquivo .env
+```
+
+**Opção B: SQLite (Desenvolvimento)**
+```bash
+# Edite o arquivo .env e descomente:
+# DB_ENGINE=django.db.backends.sqlite3
+```
+
+### 4️. Executar migrações
+```bash
+python manage.py migrate
+python manage.py createsuperuser  # Opcional
+```
+
+### 5️. Iniciar servidor de desenvolvimento
+```bash
+python manage.py runserver
+```
+
+##  Endpoints da API
+
+### Tarefas
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| `GET` | `/api/tarefas/` | Lista todas as tarefas do usuário | ✅ |
+| `POST` | `/api/tarefas/` | Cria uma nova tarefa | ✅ |
+| `GET` | `/api/tarefas/{id}/` | Detalhes de uma tarefa específica | ✅ |
+| `PUT` | `/api/tarefas/{id}/` | Atualiza uma tarefa completa | ✅ |
+| `PATCH` | `/api/tarefas/{id}/` | Atualiza parcialmente uma tarefa | ✅ |
+| `DELETE` | `/api/tarefas/{id}/` | Remove uma tarefa | ✅ |
+
+###  Estrutura do Modelo Tarefa
+```json
+{
+  "id": 1,
+  "titulo": "Estudar Django",
+  "descricao": "Estudar Django REST Framework",
+  "concluida": false,
+  "data_criacao": "2025-01-15T10:30:00Z",
+  "data_conclusao": null,
+  "user": 1
+}
+```
+
+###  Autenticação
+```bash
+# Exemplo de requisição autenticada
+curl -H "Authorization: Bearer <token>" \
+     -X GET http://localhost:8000/api/tarefas/
+```
+
+## Tecnologias Utilizadas
+
+### Backend
+- **Python 3.12+** - Linguagem de programação
+- **Django 5.0.2** - Framework web
+- **Django REST Framework 3.14.0** - API REST
+- **PostgreSQL 15** - Banco de dados principal
+- **SQLite** - Banco de dados para desenvolvimento
+- **Django Authentication** - Sistema de autenticação
 
 
-## Instalação
-1. Clone este repositório:
-````git clone https://github.com/isabelacode/api-Tarefas.git````
+
+### DevOps & Ferramentas
+- **Docker & Docker Compose** - Containerização
+- **pip** - Gerenciamento de dependências Python
+- **python-decouple** - Gerenciamento de configurações
+- **django-filter** - Filtragem avançada de dados
 
 
-2. Preparando o projeto:
- -  Navegue até a pasta do projeto
+## Como Contribuir
 
--  Crie um ambiente virtual com o comando:
-  ````python3 -m venv venv````
-
-- Instale as dependências:
-````pip install -r requirements.txt````
-
-- Ative a venv com o comando
-````source venv/bin/activate  # Para Linux/Mac````
-````venv\Scripts\activate.bat  # Para Windows````
-
-3. Configurar o banco de dados postgres
-
--  Crie uma tabela chamada “toDoList”  no PostgreSQL.
--  Modifique a configuração do banco de dados no arquivo settings.py para inserir sua própria senha.
+1. **Fork** o projeto
+2. **Clone** seu fork: `git clone https://github.com/seu-usuario/api-Tarefas.git`
+3. **Crie** uma branch para sua feature: `git checkout -b feature/MinhaFeature`
+4. **Faça** suas alterações e commit: `git commit -m 'Add: Minha nova feature'`
+5. **Push** para a branch: `git push origin feature/MinhaFeature`
+6. **Abra** um Pull Request
 
 
-4. Execute as migrações do Django:
-````python manage.py migrate````
+**Se este projeto foi útil para você, considere dar uma estrela!** 
 
-5. Inicie o servidor de desenvolvimento:
-````python manage.py runserver````
-
-A API estará disponível em http://localhost:8000/
-
-
-## Endpoints
-- **GET /tarefas/:** Retorna todas as tarefas.
-- **POST /tarefas/:** Cria uma nova tarefa.
-- **GET /tarefas/:id/:** Retorna detalhes de uma tarefa específica.
-- **PUT /tarefas/:id/:** Atualiza os detalhes de uma tarefa específica.
-- **DELETE /tarefas/:id/:** Deleta uma tarefa específica.
-- **POST /tarefas/:id/concluida/:** Marca uma tarefa como concluída.
-
-## Urls da interface
-
- -  **cadastro:**  http://127.0.0.1:8000/auth/cadastro/
- -  **login:**  http://127.0.0.1:8000/auth/login/
- -  **home:**  http://127.0.0.1:8000/auth/home/
- -  **logout:**  http://127.0.0.1:8000/auth/logout/
 
 
 
