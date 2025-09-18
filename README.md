@@ -40,12 +40,15 @@ cd api-Tarefas
 
 ### 2️. Configure as variáveis de ambiente
 ```bash
-# Verifique as configurações em .env se necessário
+# Copie e configure o arquivo de ambiente
+cp .env.example .env
+
+# Edite o .env se necessário para suas configurações específicas
 ```
 
 ### 3. Execute com Docker Compose
 ```bash
-# Construir e iniciar todos os serviços
+# Construir e iniciar todos os serviços (recompila se houve mudanças)
 docker-compose up --build
 
 # Para executar em segundo plano
@@ -146,6 +149,26 @@ python manage.py runserver
 | `PATCH` | `/api/tarefas/{id}/` | Atualiza parcialmente uma tarefa | ✅ |
 | `DELETE` | `/api/tarefas/{id}/` | Remove uma tarefa | ✅ |
 
+### Autenticação e Usuários (API REST)
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| `POST` | `/auth/api/register/` | Criação de nova conta via API | ❌ |
+| `POST` | `/auth/api/login/` | Login via API (retorna JWT) | ❌ |
+| `GET` | `/auth/api/profile/` | Dados do usuário logado | ✅ |
+| `POST` | `/auth/api/password-reset/` | Solicitar redefinição de senha | ❌ |
+| `POST` | `/auth/api/password-reset-confirm/{uid}/{token}/` | Confirmar redefinição de senha | ❌ |
+| `POST` | `/auth/api/token/refresh/` | Renovar token JWT | ❌ |
+| `POST` | `/auth/api/token/verify/` | Verificar validade do token | ❌ |
+
+### Interface Web (Templates)
+| Método | Endpoint | Descrição | Autenticação |
+|--------|----------|-----------|--------------|
+| `GET/POST` | `/auth/cadastro/` | Criação de nova conta | ❌ |
+| `GET/POST` | `/auth/login/` | Login do usuário | ❌ |
+| `GET` | `/auth/home/` | Página inicial (após login) | ✅ |
+| `POST` | `/auth/logout/` | Logout do usuário | ✅ |
+| `DELETE` | `/auth/delete-task/{id}/` | Remove uma tarefa (via web) | ✅ |
+
 ###  Estrutura do Modelo Tarefa
 ```json
 {
@@ -161,9 +184,43 @@ python manage.py runserver
 
 ###  Autenticação
 ```bash
-# Exemplo de requisição autenticada
-curl -H "Authorization: Bearer <token>" \
+# Exemplo de criação de conta via API
+curl -X POST http://localhost:8000/auth/api/register/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "meuusuario",
+    "email": "email@exemplo.com",
+    "password": "minhasenha123",
+    "password_confirmation": "minhasenha123",
+    "first_name": "Meu",
+    "last_name": "Nome"
+  }'
+
+# Exemplo de login via API
+curl -X POST http://localhost:8000/auth/api/login/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "meuusuario",
+    "password": "minhasenha123"
+  }'
+
+# Exemplo de solicitação de redefinição de senha
+curl -X POST http://localhost:8000/auth/api/password-reset/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "email@exemplo.com"
+  }'
+
+# Exemplo de requisição autenticada com JWT
+curl -H "Authorization: Bearer <access_token>" \
      -X GET http://localhost:8000/api/tarefas/
+
+# Renovar token JWT
+curl -X POST http://localhost:8000/auth/api/token/refresh/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "refresh": "<refresh_token>"
+  }'
 ```
 
 ## Tecnologias Utilizadas
