@@ -29,8 +29,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    env_file:
-      - .env
     environment:
       - DEBUG=1
       - DATABASE_URL=postgresql://postgres:1234@db:5432/toDoList
